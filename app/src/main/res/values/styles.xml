@@ -27,7 +27,6 @@
         <item name="textColor">@color/white</item>
 
         <item name="progressSize">@dimen/skill_progress_size</item>
-        <item name="progress">1</item>
     </style>
 
 </resources>

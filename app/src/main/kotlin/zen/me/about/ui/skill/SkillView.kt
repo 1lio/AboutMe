@@ -11,6 +11,7 @@ import android.view.View
 import zen.me.about.R
 import zen.me.about.util.toDp
 import zen.me.about.util.toSp
+import kotlin.math.PI
 
 class SkillView @JvmOverloads constructor(
     context: Context,
@@ -19,24 +20,18 @@ class SkillView @JvmOverloads constructor(
 ) : View(context, attr, defStyle) {
 
     private companion object {
-        const val COLOR_PRIMARY: Int = 28313600  // #283136 (DarkGray)
-        const val COLOR_ACCENT: Int = 6129602    // #000 (LightBlue)
-        const val COLOR_SHADOW: Int = 3750201    // #000 (Gray)
-        const val COLOR_TEXT: Int = 1            // #000 (Black)
-        const val DEF_TEXT: String = "NONE"
+        const val COLOR_PRIMARY: Int = Color.BLACK
+        const val COLOR_ACCENT: Int = Color.BLUE
+        const val COLOR_SHADOW: Int = Color.LTGRAY
+        const val COLOR_TEXT: Int = Color.WHITE
+        const val DEF_TEXT: String = "Skill"
         const val DEF_TEXT_SIZE: Float = 12f
         const val DEF_PROGRESS: Int = 50
-        const val DEF_PROGRESS_SIZE: Float = 2f
+        const val DEF_PROGRESS_SIZE: Float = 4f
         const val DEF_SPACING: Float = 8f
         const val DEF_START_ANGLE: Float = 270f  // 12 o'clock
-        const val DEF_VIEW_SIZE: Int = 52
+        const val DEF_VIEW_SIZE: Int = 56
     }
-
-    // Colors
-    private var bgColor: Int
-    private var progressColor: Int
-    private var bgProgress: Int
-    private var textColor: Int
 
     // Dimensions
     private var textSize: Float = DEF_TEXT_SIZE
@@ -47,36 +42,29 @@ class SkillView @JvmOverloads constructor(
     // Values
     private var text: String
     private var progress: Int
+    private var bgColor: Int
+    private var progressColor: Int
+    private var bgProgress: Int
+    private var textColor: Int
 
     // Tools
     private var paint: Paint
     private var oval: RectF
 
-
     init {
         val a: TypedArray = context.theme.obtainStyledAttributes(attr, R.styleable.SkillView, 0, 0)
 
         try {
-
             bgColor = a.getColor(R.styleable.SkillView_backgroundColor, COLOR_PRIMARY)
-
             progressColor = a.getColor(R.styleable.SkillView_progressColor, COLOR_ACCENT)
-
             bgProgress = a.getColor(R.styleable.SkillView_backgroundProgress, COLOR_SHADOW)
-
             textColor = a.getColor(R.styleable.SkillView_textColor, COLOR_TEXT)
-
             text = a.getString(R.styleable.SkillView_text) ?: DEF_TEXT
-
             textSize = a.getDimension(R.styleable.SkillView_textSize, DEF_TEXT_SIZE.toSp(context))
-
             progressSize = a.getDimension(R.styleable.SkillView_progressSize, DEF_PROGRESS_SIZE.toDp(context))
-
             progress = a.getInteger(R.styleable.SkillView_progress, DEF_PROGRESS)
-
             paint = Paint()
             oval = RectF()
-
         } finally {
             a.recycle()
         }
@@ -91,18 +79,16 @@ class SkillView @JvmOverloads constructor(
         val minWidth = if (widthMode == MeasureSpec.UNSPECIFIED) defSize else wMeasureSpec
         val minHeight = if (heightMode == MeasureSpec.UNSPECIFIED) defSize else wMeasureSpec
 
-
         val size = if (minWidth <= minHeight) minWidth else minHeight
         setMeasuredDimension(size, size)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        shift = 25f - progressSize
+        shift = 24f - progressSize
         radius = width / 2f
         oval.set(DEF_SPACING, DEF_SPACING, radius * 2 - DEF_SPACING, radius * 2 - DEF_SPACING)
     }
-
 
     override fun onDraw(canvas: Canvas) {
         drawBackground(canvas)
@@ -114,7 +100,7 @@ class SkillView @JvmOverloads constructor(
     private fun drawBackground(canvas: Canvas) {
         paint(Paint.Style.FILL_AND_STROKE)
         paint.color = bgColor
-        paint.setShadowLayer(radius, 2f, 2f, Color.GRAY)
+        paint.setShadowLayer(radius / (2 * PI.toFloat()) - shift, 0f, 5f, COLOR_SHADOW)
         canvas.drawCircle(radius, radius, radius - shift, paint)
     }
 
@@ -158,13 +144,9 @@ class SkillView @JvmOverloads constructor(
         } else drawProgress(canvas, nProgress)
     }
 
-    fun setText(text: String) {
-        this.text = text
-    }
+    fun setText(text: String) { this.text = text }
 
-    fun setProgress(count: Int) {
-        this.progress = count
-    }
+    fun setProgress(count: Int) { this.progress = count }
 
     // Percent from 360
     private fun Int.toPercent(): Float {
