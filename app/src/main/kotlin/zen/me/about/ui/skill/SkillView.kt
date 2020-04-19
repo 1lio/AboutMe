@@ -123,7 +123,8 @@ class SkillView @JvmOverloads constructor(
         paint.textAlign = Paint.Align.CENTER
         paint.textSize = textSize
 
-        canvas.drawText(text, radius, radius + DEF_SPACING, paint)
+        val offsetY = (paint.descent() + paint.ascent()) / 2
+        canvas.drawText(text, radius, radius + (DEF_SPACING) - offsetY, paint)
     }
 
     private fun paint(paintStyle: Paint.Style, width: Float = 0f) {
