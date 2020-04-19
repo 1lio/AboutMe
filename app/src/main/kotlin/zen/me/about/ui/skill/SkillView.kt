@@ -61,7 +61,8 @@ class SkillView @JvmOverloads constructor(
             textColor = a.getColor(R.styleable.SkillView_textColor, COLOR_TEXT)
             text = a.getString(R.styleable.SkillView_text) ?: DEF_TEXT
             textSize = a.getDimension(R.styleable.SkillView_textSize, DEF_TEXT_SIZE.toSp(context))
-            progressSize = a.getDimension(R.styleable.SkillView_progressSize, DEF_PROGRESS_SIZE.toDp(context))
+            progressSize =
+                a.getDimension(R.styleable.SkillView_progressSize, DEF_PROGRESS_SIZE.toDp(context))
             progress = a.getInteger(R.styleable.SkillView_progress, DEF_PROGRESS)
             paint = Paint()
             oval = RectF()
@@ -124,7 +125,7 @@ class SkillView @JvmOverloads constructor(
         paint.textSize = textSize
 
         val offsetY = (paint.descent() + paint.ascent()) / 2
-        canvas.drawText(text, radius, radius + (DEF_SPACING) - offsetY, paint)
+        canvas.drawText(text, radius, radius - offsetY, paint)
     }
 
     private fun paint(paintStyle: Paint.Style, width: Float = 0f) {
@@ -145,9 +146,13 @@ class SkillView @JvmOverloads constructor(
         } else drawProgress(canvas, nProgress)
     }
 
-    fun setText(text: String) { this.text = text }
+    fun setText(text: String) {
+        this.text = text
+    }
 
-    fun setProgress(count: Int) { this.progress = count }
+    fun setProgress(count: Int) {
+        this.progress = count
+    }
 
     // Percent from 360
     private fun Int.toPercent(): Float {
