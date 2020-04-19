@@ -18,4 +18,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="SkillView">
+        <item name="backgroundColor">@color/colorPrimary</item>
+        <item name="progressColor">@color/colorAccent</item>
+        <item name="backgroundProgress">@color/grayLight</item>
+
+        <item name="textSize">@dimen/skill_text_size</item>
+        <item name="textColor">@color/white</item>
+
+        <item name="progressSize">@dimen/skill_progress_size</item>
+        <item name="progress">1</item>
+    </style>
+
 </resources>
