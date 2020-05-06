@@ -1,4 +1,4 @@
-package zen.me.about.ui.skill
+package zen.me.about.ui.view.skill
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -152,6 +152,10 @@ class SkillView @JvmOverloads constructor(
 
     fun setProgress(count: Int) {
         this.progress = count
+    }
+
+    fun setBG(bg:Int){
+        bgColor = bg
     }
 
     // Percent from 360

@@ -3,10 +3,10 @@
     <dimen name="app_bar_height">180dp</dimen>
 
     <dimen name="padding">16dp</dimen>
-
+    <dimen name="spacing">8dp</dimen>
     <dimen name="skill_text_size">16sp</dimen>
     <dimen name="skill_progress_size">4dp</dimen>
 
-    <dimen name="item_title_text_size">16sp</dimen>
+    <dimen name="item_title_text_size">18sp</dimen>
     <dimen name="item_description_text_size">14sp</dimen>
 </resources>

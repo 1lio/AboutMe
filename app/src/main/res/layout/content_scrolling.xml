@@ -14,7 +14,13 @@
         android:orientation="vertical">
 
         <!-- include views -->
-        <include layout="@layout/item_skills"/>
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="zen.me.about.ui.fragment.SkillFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_skills" />
 
     </LinearLayout>
 
